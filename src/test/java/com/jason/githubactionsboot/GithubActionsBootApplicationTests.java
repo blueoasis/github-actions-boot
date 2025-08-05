@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class GithubActionsBootApplicationTests {
 
     @Test
-    void contextLoads() {
+    void testIndex() {
+
     }
 
 }
