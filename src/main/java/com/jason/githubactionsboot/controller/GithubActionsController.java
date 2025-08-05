@@ -10,6 +10,6 @@ class GithubActionsController {
 
     @GetMapping
     public String index() {
-        return "Hello and welcome to GitHub Actions Boot!!!";
+        return "Hello and welcome to GitHub Actions Boot!!?";
     }
 }
