@@ -3,6 +3,12 @@ name: Pull Request CI
 on:
   push:
     branches:
+<<<<<<< HEAD
+=======
+      - development
+  pull_request:
+    branches:
+>>>>>>> f554954 (fixes for ecr image versions and limit pushes to ecr to only master branch merges)
       - development
 <<<<<<< HEAD
 =======
