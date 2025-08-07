@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 1.0.12
+=======
+1.0.1
+>>>>>>> db2bb18 (speed up tests, trying to fix pushing to ecr)

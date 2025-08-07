@@ -34,7 +34,11 @@ jobs:
 
       - name: Run Tests
 <<<<<<< HEAD
+<<<<<<< HEAD
         run: ./gradlew test
 =======
         run: ./gradlew clean test --no-daemon --stacktrace
 >>>>>>> 866ac7a (removed test-reporter)
+=======
+        run: ./gradlew test
+>>>>>>> db2bb18 (speed up tests, trying to fix pushing to ecr)
