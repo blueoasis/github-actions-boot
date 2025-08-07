@@ -89,4 +89,4 @@ jobs:
       - name: Show image URI
         run: |
           SHORT_SHA=$(echo "$GITHUB_SHA" | cut -c1-7)
-          echo "Published Image URI: public.ecr.aws/${{ secrets.ECR_PUBLIC_ALIAS }}/${{ secrets.ECR_REPOSITORY }}:${{SHORT_SHA}}"
+          echo "Published Image URI: public.ecr.aws/$ECR_ALIAS/$ECR_REPOSITORY:$SHORT_SHA"
