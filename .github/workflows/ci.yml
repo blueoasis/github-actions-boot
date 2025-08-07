@@ -8,6 +8,11 @@ on:
   pull_request:
     branches:
       - development
+<<<<<<< HEAD
+=======
+  push:
+    branches:
+>>>>>>> 866ac7a (removed test-reporter)
       - master
 
 jobs:
@@ -28,4 +33,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Tests
+<<<<<<< HEAD
         run: ./gradlew test
+=======
+        run: ./gradlew clean test --no-daemon --stacktrace
+>>>>>>> 866ac7a (removed test-reporter)
