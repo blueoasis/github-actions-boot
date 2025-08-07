@@ -1,22 +1,21 @@
 name: Pull Request CI
 
 on:
+  push:
+    branches:
+      - development
+<<<<<<< HEAD
+=======
+      - master
   pull_request:
     branches:
-      - master
       - development
-  pull_request_target:
-    branches:
       - master
-      - development
+>>>>>>> 6a85867 (commented out release.yml, added master branch to test action)
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      checks: write
-      pull-requests: write
-      contents: read
 
     steps:
       - name: Check out PR code
@@ -32,12 +31,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Tests
-        run: ./gradlew clean test --no-daemon --stacktrace
-
-      - name: Test Reporter
-        if: ${{ always() }}
-        uses: dorny/test-reporter@v2
-        with:
-          name: Gradle Tests
-          path: build/test-results/test/TEST-*.xml
-          reporter: java-junit
+        run: ./gradlew test
