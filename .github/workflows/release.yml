@@ -1,6 +1,7 @@
 name: Deploy to ECR on Merge
 
 on:
+<<<<<<< HEAD
   push:
     branches:
       - master
@@ -9,6 +10,16 @@ on:
 
 jobs:
   deploy:
+=======
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+>>>>>>> fe1056a (removed test-reporter)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,7 +34,11 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+<<<<<<< HEAD
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+=======
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+>>>>>>> fe1056a (removed test-reporter)
           aws-region: us-east-1
 
       - name: Log in to Amazon Public ECR

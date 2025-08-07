@@ -16,6 +16,11 @@ on:
   pull_request:
     branches:
       - development
+<<<<<<< HEAD
+=======
+  push:
+    branches:
+>>>>>>> 866ac7a (removed test-reporter)
       - master
 >>>>>>> 6a85867 (commented out release.yml, added master branch to test action)
 
@@ -37,4 +42,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Tests
+<<<<<<< HEAD
         run: ./gradlew test
+=======
+        run: ./gradlew clean test --no-daemon --stacktrace
+>>>>>>> 866ac7a (removed test-reporter)
