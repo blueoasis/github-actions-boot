@@ -1,10 +1,11 @@
 name: Deploy to ECR on Merge
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - master
+    paths:
+      - 'VERSION'
 
 jobs:
   deploy:

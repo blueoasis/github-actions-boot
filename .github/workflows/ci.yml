@@ -1,13 +1,11 @@
 name: Pull Request CI
 
 on:
-  pull_request:
-    branches:
-      - master
-      - development
   push:
     branches:
-      - master
+      - development
+  pull_request:
+    branches:
       - development
 
 jobs:
@@ -28,4 +26,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Tests
-        run: ./gradlew clean test --no-daemon --stacktrace
+        run: ./gradlew test
