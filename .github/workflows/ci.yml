@@ -65,21 +65,25 @@ jobs:
           aws ecr-public get-login-password \
             | docker login --username AWS --password-stdin public.ecr.aws
 
+      - name: Read semantic version from VERSION file
+        id: version
+        run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
       - name: Build, tag, and push image to Public ECR
         if: ${{ success()}}
         env:
           ECR_ALIAS: ${{ secrets.ECR_PUBLIC_ALIAS }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          VERSION: ${{ env.VERSION }}
         run: |
-          SHORT_SHA=$(echo "$GITHUB_SHA" | cut -c1-7)
           IMAGE_URI=public.ecr.aws/$ECR_ALIAS/$ECR_REPOSITORY
 
-          docker build -t $IMAGE_URI:$SHORT_SHA .
-          docker push $IMAGE_URI:$SHORT_SHA
+          docker build -t $IMAGE_URI:$VERSION .
+          docker push $IMAGE_URI:$VERSION
 
           # Also push latest
-          docker tag $IMAGE_URI:$SHORT_SHA $IMAGE_URI:latest
-          docker push $IMAGE_URI:latest
+          docker tag $IMAGE_URI:$VERSION $IMAGE_URI:latest
+          docker push $IMAGE_URI:$VERSION
 
       - name: Show image URIs
         if: ${{ success()}}
@@ -87,7 +91,6 @@ jobs:
           ECR_ALIAS: ${{ secrets.ECR_PUBLIC_ALIAS }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
-          SHORT_SHA=$(echo "$GITHUB_SHA" | cut -c1-7)
           echo "Published image:"
-          echo "- public.ecr.aws/$ECR_ALIAS/$ECR_REPOSITORY:$SHORT_SHA"
+          echo "- public.ecr.aws/$ECR_ALIAS/$ECR_REPOSITORY:$VERSION"
           echo "- public.ecr.aws/$ECR_ALIAS/$ECR_REPOSITORY:latest"
