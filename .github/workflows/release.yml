@@ -2,6 +2,7 @@ name: Deploy to ECR on Merge
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
   push:
     branches:
       - master
@@ -13,8 +14,13 @@ jobs:
 =======
   pull_request:
     types: [closed]
+=======
+  push:
+>>>>>>> 5610195 (speed up tests, trying to fix pushing to ecr)
     branches:
       - master
+    paths:
+      - 'VERSION'
 
 jobs:
   deploy:

@@ -17,10 +17,13 @@ on:
     branches:
       - development
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   push:
     branches:
 >>>>>>> 866ac7a (removed test-reporter)
+=======
+>>>>>>> 308db2d (speed up tests, trying to fix pushing to ecr)
       - master
 >>>>>>> 6a85867 (commented out release.yml, added master branch to test action)
 
@@ -43,7 +46,11 @@ jobs:
 
       - name: Run Tests
 <<<<<<< HEAD
+<<<<<<< HEAD
         run: ./gradlew test
 =======
         run: ./gradlew clean test --no-daemon --stacktrace
 >>>>>>> 866ac7a (removed test-reporter)
+=======
+        run: ./gradlew test
+>>>>>>> db2bb18 (speed up tests, trying to fix pushing to ecr)
