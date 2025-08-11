@@ -9,10 +9,13 @@ on:
     branches:
       - development
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   push:
     branches:
 >>>>>>> 866ac7a (removed test-reporter)
+=======
+>>>>>>> 308db2d (speed up tests, trying to fix pushing to ecr)
       - master
 
 jobs:
