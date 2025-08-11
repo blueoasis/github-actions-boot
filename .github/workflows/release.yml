@@ -1,0 +1,58 @@
+name: Deploy to ECR on Merge
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'VERSION'
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out merged code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Log in to Amazon Public ECR
+        run: |
+          aws ecr-public get-login-password \
+            | docker login --username AWS \
+              --password-stdin public.ecr.aws
+
+      - name: Build, tag, and push image to Public ECR
+        env:
+          ECR_ALIAS: ${{ secrets.ECR_PUBLIC_ALIAS }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        run: |
+          VERSION=$(cat VERSION)
+          IMAGE_URI=public.ecr.aws/$ECR_ALIAS/$ECR_REPOSITORY
+
+          echo "Tagging image as: $VERSION"
+
+          docker build -t $IMAGE_URI:$VERSION .
+          docker push $IMAGE_URI:$VERSION
+
+          docker tag $IMAGE_URI:$VERSION $IMAGE_URI:latest
+          docker push $IMAGE_URI:latest
+
+      - name: Show image URI
+        env:
+          ECR_ALIAS: ${{ secrets.ECR_PUBLIC_ALIAS }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        run: |
+          VERSION=$(cat VERSION)
+          echo "Published Image URI: public.ecr.aws/$ECR_ALIAS/$ECR_REPOSITORY:$VERSION"
